@@ -2,14 +2,11 @@ package com.gildedrose;
 
 import org.junit.jupiter.api.Test;
 
+import static com.gildedrose.GildedRose.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GildedRoseTest {
-
-    private static final String SULFARAS = "Sulfuras, Hand of Ragnaros";
-    private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
-    private static final String BRIE = "Aged Brie";
 
     @Test
     void qualityDegradesTwiceAsFastAfterSellByDatePassed() {
@@ -43,7 +40,7 @@ class GildedRoseTest {
     @Test
     void agedBrieIncreasesInQualityTheOlderItGets() {
         // given
-        Item[] items = new Item[]{new Item(BRIE, 1, 0)};
+        Item[] items = new Item[]{new Item(AGED_BRIE, 1, 0)};
         GildedRose app = new GildedRose(items);
 
         // when
