@@ -1,13 +1,13 @@
 package com.gildedrose.sellindelta;
 
-import com.gildedrose.Item;
+import com.gildedrose.ItemWrapper;
 
 public interface SellInDeltaStrategy {
 
     /**
-     * @param item: item to determine the strategy
+     * @param item : item to determine the strategy
      * @return difference in sellIn for specified item
      */
-    int sellInDelta(Item item);
+    int sellInDelta(ItemWrapper item);
 
 }

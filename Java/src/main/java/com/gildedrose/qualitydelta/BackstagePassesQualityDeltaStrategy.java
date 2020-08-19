@@ -1,20 +1,20 @@
 package com.gildedrose.qualitydelta;
 
 
-import com.gildedrose.Item;
+import com.gildedrose.ItemWrapper;
 
 public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy {
 
     @Override
-    public int qualityDelta(final Item item) {
-        if (item.sellIn > 10) {
+    public int qualityDelta(final ItemWrapper item) {
+        if (item.getSellIn() > 10) {
             return 1;
-        } else if (item.sellIn > 5) {
+        } else if (item.getSellIn() > 5) {
             return 2;
-        } else if (item.sellIn > 0) {
+        } else if (item.getSellIn() > 0) {
             return 3;
         } else {
-            return -item.quality;
+            return -item.getQuality();
         }
     }
 

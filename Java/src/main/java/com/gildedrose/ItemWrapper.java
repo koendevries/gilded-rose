@@ -6,7 +6,7 @@ import com.gildedrose.sellindelta.DefaultSellInDeltaStrategy;
 import com.gildedrose.sellindelta.NonNegativeSellInDeltaStrategy;
 import com.gildedrose.sellindelta.SellInDeltaStrategy;
 
-class ItemWrapper {
+public class ItemWrapper {
 
     public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
     public static final String SULFARAS = "Sulfuras, Hand of Ragnaros";
@@ -47,7 +47,7 @@ class ItemWrapper {
     }
 
     private void updateQuality() {
-        final int qualityDelta = qualityDeltaStrategy.qualityDelta(item);
+        final int qualityDelta = qualityDeltaStrategy.qualityDelta(this);
         if (qualityDelta > 0) {
             item.quality = Math.min(50, item.quality + qualityDelta);
         }
@@ -57,7 +57,15 @@ class ItemWrapper {
     }
 
     private void updateSellIn() {
-        item.sellIn += sellInDeltaStrategy.sellInDelta(item);
+        item.sellIn += sellInDeltaStrategy.sellInDelta(this);
+    }
+
+    public int getQuality() {
+        return item.quality;
+    }
+
+    public int getSellIn() {
+        return item.sellIn;
     }
 
 }
