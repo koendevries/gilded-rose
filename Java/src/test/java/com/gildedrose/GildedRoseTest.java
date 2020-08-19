@@ -119,6 +119,20 @@ class GildedRoseTest {
         assertEquals(0, items[0].quality);
     }
 
+    @Test
+    void backstagePassesQualityStays0MultipleDaysAfterConcert() {
+        // given
+        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 0, 10)};
+        GildedRose app = new GildedRose(items);
+
+        // when
+        app.updateQuality();
+        app.updateQuality();
+
+        // then
+        assertEquals(0, items[0].quality);
+    }
+
 
     @Test
     void backstagePassesQualityIncreases() {
