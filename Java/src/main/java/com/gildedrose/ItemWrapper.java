@@ -12,6 +12,8 @@ public class ItemWrapper {
     public static final String SULFARAS = "Sulfuras, Hand of Ragnaros";
     public static final String AGED_BRIE = "Aged Brie";
     public static final String CONJURED = "Conjured Mana Cake";
+    private static final int MAXIMUM_QUALITY = 50;
+    private static final int MINIMUM_QUALITY = 0;
 
     private final Item item;
     private final QualityDeltaStrategy qualityDeltaStrategy;
@@ -49,10 +51,10 @@ public class ItemWrapper {
     private void updateQuality() {
         final int qualityDelta = qualityDeltaStrategy.qualityDelta(this);
         if (qualityDelta > 0) {
-            item.quality = Math.min(50, item.quality + qualityDelta);
+            item.quality = Math.min(MAXIMUM_QUALITY, item.quality + qualityDelta);
         }
         if (qualityDelta < 0) {
-            item.quality = Math.max(0, item.quality + qualityDelta);
+            item.quality = Math.max(MINIMUM_QUALITY, item.quality + qualityDelta);
         }
     }
 
