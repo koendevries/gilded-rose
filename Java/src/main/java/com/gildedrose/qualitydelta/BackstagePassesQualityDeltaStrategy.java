@@ -6,7 +6,7 @@ import com.gildedrose.Item;
 public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy {
 
     @Override
-    public int qualityDelta(Item item) {
+    public int qualityDelta(final Item item) {
         if (item.sellIn > 10) {
             return 1;
         } else if (item.sellIn > 5) {
@@ -17,5 +17,6 @@ public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy
             return -item.quality;
         }
     }
+
 }
 

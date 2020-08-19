@@ -6,7 +6,7 @@ import com.gildedrose.Item;
 public class DefaultQualityDeltaStrategy implements QualityDeltaStrategy {
 
     @Override
-    public int qualityDelta(Item item) {
+    public int qualityDelta(final Item item) {
         if (item.sellIn > 0) {
             return -1;
         }

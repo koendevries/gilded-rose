@@ -5,7 +5,7 @@ import com.gildedrose.Item;
 public class DefaultSellInDeltaStrategy implements SellInDeltaStrategy {
 
     @Override
-    public int sellInDelta(Item item) {
+    public int sellInDelta(final Item item) {
         return -1;
     }
 
