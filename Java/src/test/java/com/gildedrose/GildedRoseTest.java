@@ -8,6 +8,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class GildedRoseTest {
 
+
+    @Test
+    void qualityDegrades() {
+        // given
+        Item[] items = new Item[]{new Item("foo", 1, 5)};
+        GildedRose app = new GildedRose(items);
+
+        // when
+        app.updateQuality();
+
+        // then
+        assertEquals(0, items[0].sellIn);
+        assertEquals(4, items[0].quality);
+    }
+
     @Test
     void qualityDegradesTwiceAsFastAfterSellByDatePassed() {
         // given
@@ -137,6 +152,21 @@ class GildedRoseTest {
     @Test
     void backstagePassesQualityIncreases() {
         // given
+        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 12, 10)};
+        GildedRose app = new GildedRose(items);
+
+        // when
+        app.updateQuality();
+
+        // then
+        assertEquals(11, items[0].sellIn);
+        assertEquals(11, items[0].quality);
+    }
+
+
+    @Test
+    void backstagePassesQualityIncreasesBy2WhenThereAre10DaysOrLess() {
+        // given
         Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 11, 10)};
         GildedRose app = new GildedRose(items);
 
@@ -145,21 +175,6 @@ class GildedRoseTest {
 
         // then
         assertEquals(10, items[0].sellIn);
-        assertEquals(11, items[0].quality);
-    }
-
-
-    @Test
-    void backstagePassesQualityIncreasesBy2WhenThereAre10DaysOrLess() {
-        // given
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 10, 10)};
-        GildedRose app = new GildedRose(items);
-
-        // when
-        app.updateQuality();
-
-        // then
-        assertEquals(9, items[0].sellIn);
         assertEquals(12, items[0].quality);
     }
 
@@ -167,14 +182,14 @@ class GildedRoseTest {
     @Test
     void backstagePassesQualityIncreasesBy3WhenThereAre5DaysOrLess() {
         // given
-        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 5, 10)};
+        Item[] items = new Item[]{new Item(BACKSTAGE_PASSES, 6, 10)};
         GildedRose app = new GildedRose(items);
 
         // when
         app.updateQuality();
 
         // then
-        assertEquals(4, items[0].sellIn);
+        assertEquals(5, items[0].sellIn);
         assertEquals(13, items[0].quality);
     }
 

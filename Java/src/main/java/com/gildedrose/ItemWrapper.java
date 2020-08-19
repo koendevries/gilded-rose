@@ -44,8 +44,8 @@ public class ItemWrapper {
     }
 
     void update() {
-        updateQuality();
         updateSellIn();
+        updateQuality();
     }
 
     private void updateQuality() {
