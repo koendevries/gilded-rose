@@ -13,8 +13,10 @@ public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy
             return 2;
         } else if (item.getSellIn() > 0) {
             return 3;
-        } else {
+        } else if (item.getSellIn() == 0){
             return -item.getQuality();
+        } else {
+            return 0;
         }
     }
 
