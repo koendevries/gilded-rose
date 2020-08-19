@@ -2,7 +2,7 @@ package com.gildedrose;
 
 import org.junit.jupiter.api.Test;
 
-import static com.gildedrose.GildedRose.*;
+import static com.gildedrose.ItemWrapper.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -176,6 +176,51 @@ class GildedRoseTest {
         // then
         assertEquals(4, items[0].sellIn);
         assertEquals(13, items[0].quality);
+    }
+
+    @Test
+    void conjuredItemsDegradeTwiceAsFastAsNormalItems() {
+        // given
+        final int conjuredQualityBefore = 10;
+        final int fooQualityBefore = 10;
+        Item[] items = new Item[]{
+                new Item(CONJURED, 5, conjuredQualityBefore),
+                new Item("foo", 5, fooQualityBefore)
+        };
+        GildedRose app = new GildedRose(items);
+
+        // when
+        app.updateQuality();
+        final int conjuredQualityDelta = items[0].quality - conjuredQualityBefore;
+        final int fooQualityDelta = items[1].quality - fooQualityBefore;
+
+        // then
+        assertEquals(4, items[0].sellIn);
+        assertEquals(4, items[1].sellIn);
+        assertEquals(2 * fooQualityDelta, conjuredQualityDelta);
+    }
+
+
+    @Test
+    void conjuredItemsDegradeTwiceAsFastAsNormalItemsAfterSellIn() {
+        // given
+        final int conjuredQualityBefore = 10;
+        final int fooQualityBefore = 10;
+        Item[] items = new Item[]{
+                new Item(CONJURED, -1, conjuredQualityBefore),
+                new Item("foo", -1, fooQualityBefore)
+        };
+        GildedRose app = new GildedRose(items);
+
+        // when
+        app.updateQuality();
+        final int conjuredQualityDelta = items[0].quality - conjuredQualityBefore;
+        final int fooQualityDelta = items[1].quality - fooQualityBefore;
+
+        // then
+        assertEquals(-2, items[0].sellIn);
+        assertEquals(-2, items[1].sellIn);
+        assertEquals(2 * fooQualityDelta, conjuredQualityDelta);
     }
 
 }

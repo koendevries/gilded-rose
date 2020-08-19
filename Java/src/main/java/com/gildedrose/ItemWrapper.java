@@ -6,9 +6,12 @@ import com.gildedrose.sellindelta.DefaultSellInDeltaStrategy;
 import com.gildedrose.sellindelta.NonNegativeSellInDeltaStrategy;
 import com.gildedrose.sellindelta.SellInDeltaStrategy;
 
-import static com.gildedrose.GildedRose.*;
-
 class ItemWrapper {
+
+    public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
+    public static final String SULFARAS = "Sulfuras, Hand of Ragnaros";
+    public static final String AGED_BRIE = "Aged Brie";
+    public static final String CONJURED = "Conjured Mana Cake";
 
     private final Item item;
     private final QualityDeltaStrategy qualityDeltaStrategy;
@@ -31,6 +34,8 @@ class ItemWrapper {
                 return new ItemWrapper(item, new AgedBrieQualityDeltaStrategy(), new DefaultSellInDeltaStrategy());
             case SULFARAS:
                 return new ItemWrapper(item, new SulfarasQualityDeltaStrategy(), new NonNegativeSellInDeltaStrategy());
+            case CONJURED:
+                return new ItemWrapper(item, new ConjuredQualityDeltaStrategy(), new DefaultSellInDeltaStrategy());
             default:
                 return new ItemWrapper(item, new DefaultQualityDeltaStrategy(), new DefaultSellInDeltaStrategy());
         }
