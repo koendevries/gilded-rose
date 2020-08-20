@@ -1,7 +1,7 @@
 package com.gildedrose.qualitydelta;
 
 
-import com.gildedrose.ItemWrapper;
+import com.gildedrose.UpdatableItem;
 
 public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy {
 
@@ -10,7 +10,7 @@ public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy
     private static final int ONE_DAY_AFTER = -1;
 
     @Override
-    public int qualityDelta(final ItemWrapper item) {
+    public int qualityDelta(final UpdatableItem item) {
         if (item.getSellIn() > TEN_DAYS_LEFT) {
             return 1;
         } else if (item.getSellIn() > FIVE_DAYS_LEFT) {
@@ -24,7 +24,7 @@ public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy
         }
     }
 
-    private boolean isDayAfterEvent(ItemWrapper item) {
+    private boolean isDayAfterEvent(UpdatableItem item) {
         return item.getSellIn() == ONE_DAY_AFTER;
     }
 

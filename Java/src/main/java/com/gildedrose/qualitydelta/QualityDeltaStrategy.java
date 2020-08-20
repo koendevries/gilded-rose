@@ -1,7 +1,7 @@
 package com.gildedrose.qualitydelta;
 
 
-import com.gildedrose.ItemWrapper;
+import com.gildedrose.UpdatableItem;
 
 public interface QualityDeltaStrategy {
 
@@ -10,7 +10,7 @@ public interface QualityDeltaStrategy {
      * @param item : item to determine the strategy
      * @return difference in quality for specified item
      */
-    int qualityDelta(ItemWrapper item);
+    int qualityDelta(UpdatableItem item);
 
 }
 

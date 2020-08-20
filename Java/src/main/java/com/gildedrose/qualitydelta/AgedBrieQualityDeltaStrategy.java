@@ -1,12 +1,12 @@
 package com.gildedrose.qualitydelta;
 
 
-import com.gildedrose.ItemWrapper;
+import com.gildedrose.UpdatableItem;
 
 public class AgedBrieQualityDeltaStrategy implements QualityDeltaStrategy {
 
     @Override
-    public int qualityDelta(final ItemWrapper item) {
+    public int qualityDelta(final UpdatableItem item) {
         return 1;
     }
 
