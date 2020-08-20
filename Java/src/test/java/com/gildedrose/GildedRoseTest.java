@@ -31,6 +31,7 @@ class GildedRoseTest {
                 new Item(BACKSTAGE_PASSES, 11, 50),
                 new Item(BACKSTAGE_PASSES, 10, 49),
                 new Item(BACKSTAGE_PASSES, 5, 48),
+                new Item(AGED_BRIE, -1, 50)
         };
         GildedRose app = new GildedRose(items);
 
