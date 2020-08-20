@@ -10,9 +10,8 @@ class GildedRose {
     }
 
     public void updateQuality() {
-        for (Item item : items) {
-            final UpdatableItem wrappedItem = UpdatableItemFactory.create(item);
-            wrappedItem.update();
+        for (final Item item : items) {
+            UpdatableItemFactory.create(item).update();
         }
     }
 }

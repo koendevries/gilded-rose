@@ -22,7 +22,7 @@ public class UpdatableItemFactory {
 
     private UpdatableItemFactory() {}
 
-    public static UpdatableItem create(Item item) {
+    public static UpdatableItem create(final Item item) {
         switch (item.name) {
             case BACKSTAGE_PASSES:
                 return new UpdatableItem(item, BACKSTAGE_PASSES_QUALITY_DELTA_STRATEGY, DEFAULT_SELL_IN_DELTA_STRATEGY);
