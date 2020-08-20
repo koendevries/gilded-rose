@@ -5,7 +5,6 @@ import com.gildedrose.UpdatableItem;
 import com.gildedrose.UpdatableItemFactory;
 import org.junit.jupiter.api.Test;
 
-import static com.gildedrose.UpdatableItemFactory.CONJURED;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ConjuredQualityDeltaStrategyTest {

@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DefaultQualityDeltaStrategyTest {
 
-    DefaultQualityDeltaStrategy defaultQualityDeltaStrategy = new DefaultQualityDeltaStrategy();
+    final DefaultQualityDeltaStrategy defaultQualityDeltaStrategy = new DefaultQualityDeltaStrategy();
 
     @Test
     void degradedsByOne() {
