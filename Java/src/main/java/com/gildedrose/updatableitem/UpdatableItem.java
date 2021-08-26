@@ -1,8 +1,9 @@
-package com.gildedrose;
+package com.gildedrose.updatableitem;
 
 
-import com.gildedrose.qualitydelta.*;
-import com.gildedrose.sellindelta.SellInDeltaStrategy;
+import com.gildedrose.Item;
+
+import java.util.function.ToIntFunction;
 
 public class UpdatableItem {
 
@@ -10,25 +11,24 @@ public class UpdatableItem {
     private static final int MINIMUM_QUALITY = 0;
 
     private final Item item;
-    private final QualityDeltaStrategy qualityDeltaStrategy;
-    private final SellInDeltaStrategy sellInDeltaStrategy;
+    private final ToIntFunction<UpdatableItem> qualityDeltaFunction;
+    private final ToIntFunction<UpdatableItem> sellInDeltaFunction;
 
-    UpdatableItem(
-            final Item item,
-            final QualityDeltaStrategy qualityDeltaStrategy,
-            final SellInDeltaStrategy sellInDeltaStrategy) {
+    UpdatableItem(final Item item,
+                  final ToIntFunction<UpdatableItem> qualityDeltaFunction,
+                  final ToIntFunction<UpdatableItem> sellInDeltaFunction) {
         this.item = item;
-        this.qualityDeltaStrategy = qualityDeltaStrategy;
-        this.sellInDeltaStrategy = sellInDeltaStrategy;
+        this.qualityDeltaFunction = qualityDeltaFunction;
+        this.sellInDeltaFunction = sellInDeltaFunction;
     }
 
-    void update() {
+    public void update() {
         updateSellIn();
         updateQuality();
     }
 
     private void updateQuality() {
-        final int qualityDelta = qualityDeltaStrategy.qualityDelta(this);
+        final int qualityDelta = qualityDeltaFunction.applyAsInt(this);
         if (qualityDelta > 0) {
             item.quality = Math.min(MAXIMUM_QUALITY, item.quality + qualityDelta);
         }
@@ -38,7 +38,7 @@ public class UpdatableItem {
     }
 
     private void updateSellIn() {
-        item.sellIn += sellInDeltaStrategy.sellInDelta(this);
+        item.sellIn += sellInDeltaFunction.applyAsInt(this);
     }
 
     public int getQuality() {
