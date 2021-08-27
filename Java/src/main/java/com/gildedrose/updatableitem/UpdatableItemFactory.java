@@ -4,9 +4,7 @@ import com.gildedrose.Item;
 
 import java.util.function.ToIntFunction;
 
-import static com.gildedrose.util.Integers.constant;
-import static com.gildedrose.util.Integers.where;
-
+import static com.gildedrose.updatableitem.UpdatableItem.DEFAULT_QUALITY_DELTA_FUNCTION;
 
 public class UpdatableItemFactory {
 
@@ -20,34 +18,30 @@ public class UpdatableItemFactory {
     static final int ONE_DAY_AFTER = -1;
 
     private UpdatableItemFactory() {
+        throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");
     }
 
     public static UpdatableItem create(final Item item) {
         switch (item.name) {
             case BACKSTAGE_PASSES:
-                return new UpdatableItem(item,
-                        backStagePassesQualityDelta(),
-                        constant(-1));
+                return UpdatableItem.from(item)
+                        .withQualityDeltaFunction(backstagePassesQualityDelta());
             case AGED_BRIE:
-                return new UpdatableItem(item,
-                        constant(1),
-                        constant(-1));
+                return UpdatableItem.from(item)
+                        .withQualityDeltaFunction(i -> 1);
             case SULFARAS:
-                return new UpdatableItem(item,
-                        constant(0),
-                        where(UpdatableItem::hasPositiveSellIn, constant(1), constant(0)));
+                return UpdatableItem.from(item)
+                        .withQualityDeltaFunction(i -> 0)
+                        .withSellInDeltaFunction(i -> i.hasPositiveSellIn() ? -1 : 0);
             case CONJURED:
-                return new UpdatableItem(item,
-                        where(UpdatableItem::hasNegativeSellin, constant(-4), constant(-2)),
-                        constant(-1));
+                return UpdatableItem.from(item)
+                        .withQualityDeltaFunction(i -> 2 * DEFAULT_QUALITY_DELTA_FUNCTION.applyAsInt(i));
             default:
-                return new UpdatableItem(item,
-                        where(UpdatableItem::hasNegativeSellin, constant(-2), constant(-1)),
-                        constant(-1));
+                return UpdatableItem.from(item);
         }
     }
 
-    public static ToIntFunction<UpdatableItem> backStagePassesQualityDelta() {
+    private static ToIntFunction<UpdatableItem> backstagePassesQualityDelta() {
         return item -> {
             if (item.getSellIn() > TEN_DAYS_LEFT) {
                 return 1;
@@ -55,7 +49,7 @@ public class UpdatableItemFactory {
                 return 2;
             } else if (item.getSellIn() > ONE_DAY_AFTER) {
                 return 3;
-            } else if (item.isDayAfterEvent()) {
+            } else if (item.getSellIn() == ONE_DAY_AFTER) {
                 return -item.getQuality();
             } else {
                 return 0;

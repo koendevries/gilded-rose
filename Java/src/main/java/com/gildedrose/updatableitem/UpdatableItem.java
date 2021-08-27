@@ -1,6 +1,5 @@
 package com.gildedrose.updatableitem;
 
-
 import com.gildedrose.Item;
 
 import java.util.function.ToIntFunction;
@@ -9,18 +8,31 @@ public class UpdatableItem {
 
     private static final int MAXIMUM_QUALITY = 50;
     private static final int MINIMUM_QUALITY = 0;
-    private static final int ONE_DAY_AFTER = 1;
+    public static final ToIntFunction<UpdatableItem> DEFAULT_QUALITY_DELTA_FUNCTION = i -> i.hasNegativeSellin() ? -2 : -1;
+    public static final ToIntFunction<UpdatableItem> DEFAULT_SELL_IN_DELTA_FUNCTION = i -> -1;
 
     private final Item item;
     private final ToIntFunction<UpdatableItem> qualityDeltaFunction;
     private final ToIntFunction<UpdatableItem> sellInDeltaFunction;
 
-    UpdatableItem(final Item item,
-                  final ToIntFunction<UpdatableItem> qualityDeltaFunction,
-                  final ToIntFunction<UpdatableItem> sellInDeltaFunction) {
+    public UpdatableItem(final Item item,
+                         final ToIntFunction<UpdatableItem> qualityDeltaFunction,
+                         final ToIntFunction<UpdatableItem> sellInDeltaFunction) {
         this.item = item;
         this.qualityDeltaFunction = qualityDeltaFunction;
         this.sellInDeltaFunction = sellInDeltaFunction;
+    }
+
+    public static UpdatableItem from(final Item item) {
+        return new UpdatableItem(item, DEFAULT_QUALITY_DELTA_FUNCTION, DEFAULT_SELL_IN_DELTA_FUNCTION);
+    }
+
+    public UpdatableItem withQualityDeltaFunction(final ToIntFunction<UpdatableItem> function) {
+        return new UpdatableItem(this.item, function, this.sellInDeltaFunction);
+    }
+
+    public UpdatableItem withSellInDeltaFunction(final ToIntFunction<UpdatableItem> function) {
+        return new UpdatableItem(this.item, this.qualityDeltaFunction, function);
     }
 
     public void update() {
@@ -57,10 +69,5 @@ public class UpdatableItem {
     public boolean hasNegativeSellin() {
         return getSellIn() < 0;
     }
-
-    public boolean isDayAfterEvent() {
-        return getSellIn() == ONE_DAY_AFTER;
-    }
-
 }
 
