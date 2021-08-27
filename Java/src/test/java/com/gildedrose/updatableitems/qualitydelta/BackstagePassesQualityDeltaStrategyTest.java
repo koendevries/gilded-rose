@@ -12,10 +12,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class BackstagePassesQualityDeltaStrategyTest {
 
-    private final BackstagePassesQualityDeltaStrategy backstagePassesQualityDeltaStrategy = new BackstagePassesQualityDeltaStrategy();
+    private final QualityDeltaStrategy backstagePassesQualityDeltaStrategy = new BackstagePassesQualityDeltaStrategy();
 
-
-    static Stream<ParameterizedTestData> itemProvider() {
+    static Stream<ParameterizedTestData> backstagePassesProvider() {
         return Stream.of(
                 new ParameterizedTestData(new Item("foo", 11, 10), 1),
                 new ParameterizedTestData(new Item("foo", 10, 10), 2),
@@ -28,15 +27,12 @@ class BackstagePassesQualityDeltaStrategyTest {
     }
 
     @ParameterizedTest
-    @MethodSource("itemProvider")
-    void increaseByOne11PlusDaysBeforeEvent(ParameterizedTestData parameterizedTestData) {
-        // given
+    @MethodSource("backstagePassesProvider")
+    void shouldUpdateBackstageQuality(ParameterizedTestData parameterizedTestData) {
         final UpdatableItem updatableItem = UpdatableItemFactory.create(parameterizedTestData.item);
 
-        // when
         final int delta = backstagePassesQualityDeltaStrategy.qualityDelta(updatableItem);
 
-        // then
         assertEquals(parameterizedTestData.expected, delta);
     }
 

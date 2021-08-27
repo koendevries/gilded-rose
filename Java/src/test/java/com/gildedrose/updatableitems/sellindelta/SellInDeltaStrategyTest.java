@@ -7,35 +7,49 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class DefaultSellInDeltaStrategyTest {
+class SellInDeltaStrategyTest {
 
     private final SellInDeltaStrategy defaultSellInDeltaStrategy = SellInDeltaStrategy.DEFAULT_SELL_IN_DELTA_STRATEGY;
+    private final SellInDeltaStrategy nonNegativeSellInDeltaStrategy = SellInDeltaStrategy.NON_NEGATIVE_SELL_IN_DELTA_STRATEGY;
 
     @Test
-    void degradesByOne() {
-        // given
+    void defaultSellInShouldDecrease() {
         final Item item = new Item("foo", 1, 0);
         final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
 
-        // when
         final int actual = defaultSellInDeltaStrategy.sellInDelta(updatableItem);
 
-        // then
         assertEquals(-1, actual);
     }
 
     @Test
-    void degradesByOneAfterDueDate() {
-        // given
+    void defaultSellInShouldDecreaseAfterDueDate() {
         final Item item = new Item("foo", -1, 0);
         final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
 
-        // when
         final int actual = defaultSellInDeltaStrategy.sellInDelta(updatableItem);
 
-        // then
         assertEquals(-1, actual);
     }
 
 
+    @Test
+    void nonNegativeSellInShouldDecrease() {
+        final Item item = new Item("foo", 1, 0);
+        final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
+
+        final int actual = nonNegativeSellInDeltaStrategy.sellInDelta(updatableItem);
+
+        assertEquals(-1, actual);
+    }
+
+    @Test
+    void nonNegativeSellInDeltaShouldBeEqualAfterDueDate() {
+        final Item item = new Item("foo", 0, 0);
+        final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
+
+        final int actual = nonNegativeSellInDeltaStrategy.sellInDelta(updatableItem);
+
+        assertEquals(0, actual);
+    }
 }
