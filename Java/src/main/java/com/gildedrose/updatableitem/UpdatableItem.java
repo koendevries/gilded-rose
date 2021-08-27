@@ -9,6 +9,7 @@ public class UpdatableItem {
 
     private static final int MAXIMUM_QUALITY = 50;
     private static final int MINIMUM_QUALITY = 0;
+    private static final int ONE_DAY_AFTER = 1;
 
     private final Item item;
     private final ToIntFunction<UpdatableItem> qualityDeltaFunction;
@@ -47,6 +48,18 @@ public class UpdatableItem {
 
     public int getSellIn() {
         return item.sellIn;
+    }
+
+    public boolean hasPositiveSellIn() {
+        return getSellIn() > 0;
+    }
+
+    public boolean hasNegativeSellin() {
+        return getSellIn() < 0;
+    }
+
+    public boolean isDayAfterEvent() {
+        return getSellIn() == ONE_DAY_AFTER;
     }
 
 }

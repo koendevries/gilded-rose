@@ -2,14 +2,10 @@ package com.gildedrose.updatableitem;
 
 import com.gildedrose.Item;
 
-import java.util.function.IntPredicate;
-import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 
-import static com.gildedrose.util.Integers.decrease;
-import static com.gildedrose.util.Integers.increase;
-import static com.gildedrose.util.Integers.negative;
-import static com.gildedrose.util.Integers.stable;
+import static com.gildedrose.util.Integers.constant;
+import static com.gildedrose.util.Integers.where;
 
 
 public class UpdatableItemFactory {
@@ -29,31 +25,29 @@ public class UpdatableItemFactory {
     public static UpdatableItem create(final Item item) {
         switch (item.name) {
             case BACKSTAGE_PASSES:
-                return new UpdatableItem(item, backStagePasses(), decrease(1));
+                return new UpdatableItem(item,
+                        backStagePassesQualityDelta(),
+                        constant(-1));
             case AGED_BRIE:
-                return new UpdatableItem(item, increase(1), decrease(1));
+                return new UpdatableItem(item,
+                        constant(1),
+                        constant(-1));
             case SULFARAS:
-                return new UpdatableItem(item, stable(), decreaseUntil(1, i -> i.getSellIn() > 0));
+                return new UpdatableItem(item,
+                        constant(0),
+                        where(UpdatableItem::hasPositiveSellIn, constant(1), constant(0)));
             case CONJURED:
-                return new UpdatableItem(item, decreaseAndDoubleDecreaseAfter(2, negative()), decrease(1));
+                return new UpdatableItem(item,
+                        where(UpdatableItem::hasNegativeSellin, constant(-4), constant(-2)),
+                        constant(-1));
             default:
-                return new UpdatableItem(item, decreaseAndDoubleDecreaseAfter(1, negative()), decrease(1));
+                return new UpdatableItem(item,
+                        where(UpdatableItem::hasNegativeSellin, constant(-2), constant(-1)),
+                        constant(-1));
         }
     }
 
-    public static ToIntFunction<UpdatableItem> decreaseAndDoubleDecreaseAfter(int amount, IntPredicate doubleAfter) {
-        return t -> doubleAfter.test(t.getSellIn())
-                ? decrease(amount).applyAsInt(t) * 2
-                : decrease(amount).applyAsInt(t);
-    }
-
-    public static ToIntFunction<UpdatableItem> decreaseUntil(int amount, Predicate<UpdatableItem> decreasePredicate) {
-        return item -> decreasePredicate.test(item)
-                ? decrease(amount).applyAsInt(item)
-                : 0;
-    }
-
-    public static ToIntFunction<UpdatableItem> backStagePasses() {
+    public static ToIntFunction<UpdatableItem> backStagePassesQualityDelta() {
         return item -> {
             if (item.getSellIn() > TEN_DAYS_LEFT) {
                 return 1;
@@ -61,15 +55,11 @@ public class UpdatableItemFactory {
                 return 2;
             } else if (item.getSellIn() > ONE_DAY_AFTER) {
                 return 3;
-            } else if (isDayAfterEvent(item)) {
+            } else if (item.isDayAfterEvent()) {
                 return -item.getQuality();
             } else {
                 return 0;
             }
         };
-    }
-
-    public static boolean isDayAfterEvent(UpdatableItem item) {
-        return item.getSellIn() == ONE_DAY_AFTER;
     }
 }
