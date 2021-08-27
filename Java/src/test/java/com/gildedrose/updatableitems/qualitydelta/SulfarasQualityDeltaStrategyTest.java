@@ -1,15 +1,15 @@
-package com.gildedrose.qualitydelta;
+package com.gildedrose.updatableitems.qualitydelta;
 
 import com.gildedrose.Item;
-import com.gildedrose.UpdatableItem;
-import com.gildedrose.UpdatableItemFactory;
+import com.gildedrose.updatableitems.UpdatableItem;
+import com.gildedrose.updatableitems.UpdatableItemFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class SulfarasQualityDeltaStrategyTest {
 
-    private final SulfarasQualityDeltaStrategy sulfarasQualityDeltaStrategy = new SulfarasQualityDeltaStrategy();
+    private final QualityDeltaStrategy sulfarasQualityDeltaStrategy = QualityDeltaStrategy.SULFARAS_QUALITY_DELTA_STRATEGY;
 
     @Test
     void sulfarasQualityRemainsStable() {

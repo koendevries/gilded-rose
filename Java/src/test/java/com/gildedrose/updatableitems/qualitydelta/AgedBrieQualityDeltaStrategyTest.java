@@ -1,15 +1,15 @@
-package com.gildedrose.qualitydelta;
+package com.gildedrose.updatableitems.qualitydelta;
 
 import com.gildedrose.Item;
-import com.gildedrose.UpdatableItem;
-import com.gildedrose.UpdatableItemFactory;
+import com.gildedrose.updatableitems.UpdatableItem;
+import com.gildedrose.updatableitems.UpdatableItemFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AgedBrieQualityDeltaStrategyTest {
 
-    private final AgedBrieQualityDeltaStrategy agedBrieQualityDeltaStrategy = new AgedBrieQualityDeltaStrategy();
+    private final QualityDeltaStrategy agedBrieQualityDeltaStrategy = QualityDeltaStrategy.AGED_BRIE_QUALITY_DELTA_STRATEGY;
 
     @Test
     void agedBrieDeltaIsOne() {

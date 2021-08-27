@@ -1,8 +1,9 @@
-package com.gildedrose;
+package com.gildedrose.updatableitems;
 
 
-import com.gildedrose.qualitydelta.*;
-import com.gildedrose.sellindelta.SellInDeltaStrategy;
+import com.gildedrose.Item;
+import com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy;
+import com.gildedrose.updatableitems.sellindelta.SellInDeltaStrategy;
 
 public class UpdatableItem {
 
@@ -22,7 +23,7 @@ public class UpdatableItem {
         this.sellInDeltaStrategy = sellInDeltaStrategy;
     }
 
-    void update() {
+    public void update() {
         updateSellIn();
         updateQuality();
     }

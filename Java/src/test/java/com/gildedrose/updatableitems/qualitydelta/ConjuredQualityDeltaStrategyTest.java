@@ -1,16 +1,16 @@
-package com.gildedrose.qualitydelta;
+package com.gildedrose.updatableitems.qualitydelta;
 
 import com.gildedrose.Item;
-import com.gildedrose.UpdatableItem;
-import com.gildedrose.UpdatableItemFactory;
+import com.gildedrose.updatableitems.UpdatableItem;
+import com.gildedrose.updatableitems.UpdatableItemFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ConjuredQualityDeltaStrategyTest {
 
-    private final ConjuredQualityDeltaStrategy conjuredQualityDeltaStrategy = new ConjuredQualityDeltaStrategy();
-    private final DefaultQualityDeltaStrategy defaultQualityDeltaStrategy = new DefaultQualityDeltaStrategy();
+    private final QualityDeltaStrategy conjuredQualityDeltaStrategy = QualityDeltaStrategy.CONJURED_QUALITY_DELTA_STRATEGY;
+    private final QualityDeltaStrategy defaultQualityDeltaStrategy = QualityDeltaStrategy.DEFAULT_QUALITY_DELTA_STRATEGY;
 
     @Test
     void conjuredDegradesTwiceAsFastAsDefault() {

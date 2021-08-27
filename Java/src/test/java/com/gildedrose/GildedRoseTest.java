@@ -2,7 +2,8 @@ package com.gildedrose;
 
 import org.junit.jupiter.api.Test;
 
-import static com.gildedrose.UpdatableItemFactory.*;
+import static com.gildedrose.updatableitems.UpdatableItemFactory.AGED_BRIE;
+import static com.gildedrose.updatableitems.UpdatableItemFactory.BACKSTAGE_PASSES;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 

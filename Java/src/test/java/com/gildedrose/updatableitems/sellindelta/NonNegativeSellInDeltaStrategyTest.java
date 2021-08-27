@@ -1,15 +1,15 @@
-package com.gildedrose.sellindelta;
+package com.gildedrose.updatableitems.sellindelta;
 
 import com.gildedrose.Item;
-import com.gildedrose.UpdatableItem;
-import com.gildedrose.UpdatableItemFactory;
+import com.gildedrose.updatableitems.UpdatableItem;
+import com.gildedrose.updatableitems.UpdatableItemFactory;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class NonNegativeSellInDeltaStrategyTest {
 
-    private final NonNegativeSellInDeltaStrategy nonNegativeSellInDeltaStrategy = new NonNegativeSellInDeltaStrategy();
+    private final SellInDeltaStrategy nonNegativeSellInDeltaStrategy = SellInDeltaStrategy.NON_NEGATIVE_SELL_IN_DELTA_STRATEGY;
 
     @Test
     void degradedsByOne() {

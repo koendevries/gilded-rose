@@ -1,8 +1,14 @@
-package com.gildedrose;
+package com.gildedrose.updatableitems;
 
-import com.gildedrose.qualitydelta.*;
-import com.gildedrose.sellindelta.DefaultSellInDeltaStrategy;
-import com.gildedrose.sellindelta.NonNegativeSellInDeltaStrategy;
+import com.gildedrose.Item;
+
+import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.AGED_BRIE_QUALITY_DELTA_STRATEGY;
+import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.BACKSTAGE_PASSES_QUALITY_DELTA_STRATEGY;
+import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.CONJURED_QUALITY_DELTA_STRATEGY;
+import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.DEFAULT_QUALITY_DELTA_STRATEGY;
+import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.SULFARAS_QUALITY_DELTA_STRATEGY;
+import static com.gildedrose.updatableitems.sellindelta.SellInDeltaStrategy.DEFAULT_SELL_IN_DELTA_STRATEGY;
+import static com.gildedrose.updatableitems.sellindelta.SellInDeltaStrategy.NON_NEGATIVE_SELL_IN_DELTA_STRATEGY;
 
 public class UpdatableItemFactory {
 
@@ -10,15 +16,6 @@ public class UpdatableItemFactory {
     public static final String SULFARAS = "Sulfuras, Hand of Ragnaros";
     public static final String AGED_BRIE = "Aged Brie";
     public static final String CONJURED = "Conjured Mana Cake";
-
-    private static final DefaultQualityDeltaStrategy DEFAULT_QUALITY_DELTA_STRATEGY = new DefaultQualityDeltaStrategy();
-    private static final BackstagePassesQualityDeltaStrategy BACKSTAGE_PASSES_QUALITY_DELTA_STRATEGY = new BackstagePassesQualityDeltaStrategy();
-    private static final AgedBrieQualityDeltaStrategy AGED_BRIE_QUALITY_DELTA_STRATEGY = new AgedBrieQualityDeltaStrategy();
-    private static final SulfarasQualityDeltaStrategy SULFARAS_QUALITY_DELTA_STRATEGY = new SulfarasQualityDeltaStrategy();
-    private static final ConjuredQualityDeltaStrategy CONJURED_QUALITY_DELTA_STRATEGY = new ConjuredQualityDeltaStrategy();
-
-    private static final DefaultSellInDeltaStrategy DEFAULT_SELL_IN_DELTA_STRATEGY = new DefaultSellInDeltaStrategy();
-    private static final NonNegativeSellInDeltaStrategy NON_NEGATIVE_SELL_IN_DELTA_STRATEGY = new NonNegativeSellInDeltaStrategy();
 
     private UpdatableItemFactory() {}
 

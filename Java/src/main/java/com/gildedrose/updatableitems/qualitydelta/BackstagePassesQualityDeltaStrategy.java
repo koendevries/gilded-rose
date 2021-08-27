@@ -1,7 +1,7 @@
-package com.gildedrose.qualitydelta;
+package com.gildedrose.updatableitems.qualitydelta;
 
 
-import com.gildedrose.UpdatableItem;
+import com.gildedrose.updatableitems.UpdatableItem;
 
 public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy {
 
@@ -17,15 +17,11 @@ public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy
             return 2;
         } else if (item.getSellIn() > ONE_DAY_AFTER) {
             return 3;
-        } else if (isDayAfterEvent(item)){
+        } else if (item.getSellIn() == ONE_DAY_AFTER) {
             return -item.getQuality();
         } else {
             return 0;
         }
-    }
-
-    private boolean isDayAfterEvent(UpdatableItem item) {
-        return item.getSellIn() == ONE_DAY_AFTER;
     }
 
 }
