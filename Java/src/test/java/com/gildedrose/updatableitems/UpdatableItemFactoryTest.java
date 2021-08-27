@@ -1,18 +1,19 @@
-package com.gildedrose.updatableitems.qualitydelta;
+package com.gildedrose.updatableitems;
 
 import com.gildedrose.Item;
-import com.gildedrose.updatableitems.UpdatableItem;
-import com.gildedrose.updatableitems.UpdatableItemFactory;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class QualityDeltaStrategyTest {
+class UpdatableItemFactoryTest {
 
-    private final QualityDeltaStrategy defaultQualityDeltaStrategy = QualityDeltaStrategy.DEFAULT_QUALITY_DELTA_STRATEGY;
-    private final QualityDeltaStrategy sulfarasQualityDeltaStrategy = QualityDeltaStrategy.SULFARAS_QUALITY_DELTA_STRATEGY;
-    private final QualityDeltaStrategy agedBrieQualityDeltaStrategy = QualityDeltaStrategy.AGED_BRIE_QUALITY_DELTA_STRATEGY;
-    private final QualityDeltaStrategy conjuredQualityDeltaStrategy = QualityDeltaStrategy.CONJURED_QUALITY_DELTA_STRATEGY;
+    private final QualityDeltaStrategy defaultQualityDeltaStrategy = UpdatableItemFactory.DEFAULT_QUALITY_DELTA_STRATEGY;
+    private final QualityDeltaStrategy sulfarasQualityDeltaStrategy = UpdatableItemFactory.SULFARAS_QUALITY_DELTA_STRATEGY;
+    private final QualityDeltaStrategy agedBrieQualityDeltaStrategy = UpdatableItemFactory.AGED_BRIE_QUALITY_DELTA_STRATEGY;
+    private final QualityDeltaStrategy conjuredQualityDeltaStrategy = UpdatableItemFactory.CONJURED_QUALITY_DELTA_STRATEGY;
+
+    private final SellInDeltaStrategy defaultSellInDeltaStrategy = UpdatableItemFactory.DEFAULT_SELL_IN_DELTA_STRATEGY;
+    private final SellInDeltaStrategy nonNegativeSellInDeltaStrategy = UpdatableItemFactory.NON_NEGATIVE_SELL_IN_DELTA_STRATEGY;
 
 
     @Test
@@ -76,4 +77,46 @@ class QualityDeltaStrategyTest {
 
         assertEquals(deltaDefault * 2, deltaConjured);
     }
+
+    @Test
+    void defaultSellInShouldDecrease() {
+        final Item item = new Item("foo", 1, 0);
+        final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
+
+        final int actual = defaultSellInDeltaStrategy.sellInDelta(updatableItem);
+
+        assertEquals(-1, actual);
+    }
+
+    @Test
+    void defaultSellInShouldDecreaseAfterDueDate() {
+        final Item item = new Item("foo", -1, 0);
+        final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
+
+        final int actual = defaultSellInDeltaStrategy.sellInDelta(updatableItem);
+
+        assertEquals(-1, actual);
+    }
+
+
+    @Test
+    void nonNegativeSellInShouldDecrease() {
+        final Item item = new Item("foo", 1, 0);
+        final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
+
+        final int actual = nonNegativeSellInDeltaStrategy.sellInDelta(updatableItem);
+
+        assertEquals(-1, actual);
+    }
+
+    @Test
+    void nonNegativeSellInDeltaShouldBeEqualAfterDueDate() {
+        final Item item = new Item("foo", 0, 0);
+        final UpdatableItem updatableItem = UpdatableItemFactory.create(item);
+
+        final int actual = nonNegativeSellInDeltaStrategy.sellInDelta(updatableItem);
+
+        assertEquals(0, actual);
+    }
+
 }

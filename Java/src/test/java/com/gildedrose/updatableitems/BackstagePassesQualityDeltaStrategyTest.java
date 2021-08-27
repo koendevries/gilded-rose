@@ -1,8 +1,6 @@
-package com.gildedrose.updatableitems.qualitydelta;
+package com.gildedrose.updatableitems;
 
 import com.gildedrose.Item;
-import com.gildedrose.updatableitems.UpdatableItem;
-import com.gildedrose.updatableitems.UpdatableItemFactory;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 

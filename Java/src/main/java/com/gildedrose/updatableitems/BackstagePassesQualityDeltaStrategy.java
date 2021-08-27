@@ -1,9 +1,7 @@
-package com.gildedrose.updatableitems.qualitydelta;
+package com.gildedrose.updatableitems;
 
 
-import com.gildedrose.updatableitems.UpdatableItem;
-
-public class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy {
+class BackstagePassesQualityDeltaStrategy implements QualityDeltaStrategy {
 
     private static final int TEN_DAYS_LEFT = 10;
     private static final int FIVE_DAYS_LEFT = 5;

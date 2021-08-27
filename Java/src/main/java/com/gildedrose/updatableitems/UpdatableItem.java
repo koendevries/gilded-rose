@@ -2,8 +2,6 @@ package com.gildedrose.updatableitems;
 
 
 import com.gildedrose.Item;
-import com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy;
-import com.gildedrose.updatableitems.sellindelta.SellInDeltaStrategy;
 
 public class UpdatableItem {
 

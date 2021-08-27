@@ -2,14 +2,6 @@ package com.gildedrose.updatableitems;
 
 import com.gildedrose.Item;
 
-import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.AGED_BRIE_QUALITY_DELTA_STRATEGY;
-import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.BACKSTAGE_PASSES_QUALITY_DELTA_STRATEGY;
-import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.CONJURED_QUALITY_DELTA_STRATEGY;
-import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.DEFAULT_QUALITY_DELTA_STRATEGY;
-import static com.gildedrose.updatableitems.qualitydelta.QualityDeltaStrategy.SULFARAS_QUALITY_DELTA_STRATEGY;
-import static com.gildedrose.updatableitems.sellindelta.SellInDeltaStrategy.DEFAULT_SELL_IN_DELTA_STRATEGY;
-import static com.gildedrose.updatableitems.sellindelta.SellInDeltaStrategy.NON_NEGATIVE_SELL_IN_DELTA_STRATEGY;
-
 public class UpdatableItemFactory {
 
     public static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
@@ -17,7 +9,17 @@ public class UpdatableItemFactory {
     public static final String AGED_BRIE = "Aged Brie";
     public static final String CONJURED = "Conjured Mana Cake";
 
-    private UpdatableItemFactory() {}
+    static final QualityDeltaStrategy DEFAULT_QUALITY_DELTA_STRATEGY = item -> item.getSellIn() >= 0 ? -1 : -2;
+    static final QualityDeltaStrategy AGED_BRIE_QUALITY_DELTA_STRATEGY = item -> 1;
+    static final QualityDeltaStrategy SULFARAS_QUALITY_DELTA_STRATEGY = item -> 0;
+    static final QualityDeltaStrategy CONJURED_QUALITY_DELTA_STRATEGY = item -> 2 * DEFAULT_QUALITY_DELTA_STRATEGY.qualityDelta(item);
+    static final QualityDeltaStrategy BACKSTAGE_PASSES_QUALITY_DELTA_STRATEGY = new BackstagePassesQualityDeltaStrategy();
+
+    static final SellInDeltaStrategy DEFAULT_SELL_IN_DELTA_STRATEGY = item -> -1;
+    static final SellInDeltaStrategy NON_NEGATIVE_SELL_IN_DELTA_STRATEGY = item -> item.getSellIn() > 0 ? -1 : 0;
+
+    private UpdatableItemFactory() {
+    }
 
     public static UpdatableItem create(final Item item) {
         switch (item.name) {
