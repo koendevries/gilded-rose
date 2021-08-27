@@ -1,6 +1,10 @@
 package com.gildedrose;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.stream.Stream;
 
 import static com.gildedrose.updatableitems.UpdatableItemFactory.AGED_BRIE;
 import static com.gildedrose.updatableitems.UpdatableItemFactory.BACKSTAGE_PASSES;
@@ -12,37 +16,33 @@ class GildedRoseTest {
 
     @Test
     void qualityOfAnItemIsNeverNegative() {
-        // given
         Item[] items = new Item[]{new Item("foo", 0, 0)};
         GildedRose app = new GildedRose(items);
 
-        // when
         app.updateQuality();
 
-        // then
         assertTrue(app.items[0].quality >= 0);
         assertEquals(-1, items[0].sellIn);
     }
 
 
-    @Test
-    void qualityOfItemIsNeverMoreThan50() {
-        // given
-        Item[] items = new Item[]{
+    static Stream<Item> provideHighQualityItems() {
+        return Stream.of(
                 new Item(BACKSTAGE_PASSES, 11, 50),
                 new Item(BACKSTAGE_PASSES, 10, 49),
                 new Item(BACKSTAGE_PASSES, 5, 48),
                 new Item(AGED_BRIE, -1, 50)
-        };
-        GildedRose app = new GildedRose(items);
+        );
+    }
 
-        // when
+    @ParameterizedTest
+    @MethodSource("provideHighQualityItems")
+    void qualityOfItemIsNeverMoreThan50(Item item) {
+        GildedRose app = new GildedRose(new Item[]{item});
+
         app.updateQuality();
 
-        // then
-        for (Item item : items) {
-            assertTrue(app.items[0].quality <= 50);
-        }
+        assertTrue(item.quality <= 50);
     }
 
 }
